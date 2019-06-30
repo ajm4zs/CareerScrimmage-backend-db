@@ -1,0 +1,19 @@
+{
+  "name": "careerscrimmage-backend-db",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajm4zs/CareerScrimmage-backend-db.git"
+  },
+  "author": "Alex Mulchandani",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajm4zs/CareerScrimmage-backend-db/issues"
+  },
+  "homepage": "https://github.com/ajm4zs/CareerScrimmage-backend-db#readme"
+}
