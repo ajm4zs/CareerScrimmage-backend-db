@@ -27,11 +27,17 @@ const UserSchema = new Schema({
 	profilePictureUrl: {
 		type: String
 	},
-	age: {
-		type: Number
+	city: {
+		type: String
 	},
-	height: {
-		type: Number
+	state: {
+		type: String
+	},
+	instagram: {
+		type: String
+	},
+	twitter: {
+		type: String
 	}
 }, { timestamps: true });
 
