@@ -22,6 +22,45 @@ const AthleteSchema = new Schema({
 	},
 	resumeUrl: {
 		type: String
+	},
+	sat: {
+		reading: {
+			type: Number,
+			min: 200,
+			max: 800
+		},
+		math: {
+			type: Number,
+			min: 200,
+			max: 800
+		},
+		writing: {
+			type: Number,
+			min: 200,
+			max: 800
+		}
+	},
+	act: {
+		reading: {
+			type: Number,
+			min: 1,
+			max: 36
+		},
+		math: {
+			type: Number,
+			min: 1,
+			max: 36
+		},
+		english: {
+			type: Number,
+			min: 1,
+			max: 36
+		},
+		science: {
+			type: Number,
+			min: 1,
+			max: 36
+		}
 	}
 }, { timestamps: true });
 

@@ -10,6 +10,9 @@ const EmployerSchema = new Schema({
 	description: {
 		type: String
 	},
+	industry: {
+		type: String
+	},
 	opportunities: [{ type: Schema.ObjectId, ref: 'Opportunity' }]
 }, { timestamps: true });
 
