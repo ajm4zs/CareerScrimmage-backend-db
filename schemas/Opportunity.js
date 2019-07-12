@@ -47,21 +47,4 @@ OpportunitySchema.statics.findByState = function (state, callback) {
 	this.where('state', utilities.toCanonical(state)).findOne(callback);
 };
 
-// OpportunitySchema.statics.validateCredentials = function (email, password, callback) {
-// 	this.findByEmail(email, function (error, user) {
-// 		if (error) return void callback(error);
-// 		if (!user) return void callback(null, false);
-
-// 		user.validatePassword(password, function (error, isValid) {
-// 			if (error) return void callback(error);
-// 			if (!isValid) return void callback(null, false);
-// 			callback(null, true, user);
-// 		});
-// 	});
-// };
-
-OpportunitySchema.methods.validatePassword = function (password, callback) {
-	bcrypt.compare(password, this.hashword, callback);
-};
-
 module.exports = OpportunitySchema;

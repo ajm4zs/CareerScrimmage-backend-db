@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const errors = require('careerscrimmage-backend-utils').errors;
+const EducationSchema = require('./Education');
+const ExperienceSchema = require('./Experience');
+const TestScoreSchema = require('./TestScore');
 
 const AthleteSchema = new Schema({
 	type: {
@@ -61,7 +65,24 @@ const AthleteSchema = new Schema({
 			min: 1,
 			max: 36
 		}
-	}
+	},
+	testScores: [TestScoreSchema],
+	experiences: [ExperienceSchema],
+	education: [EducationSchema]
 }, { timestamps: true });
+
+AthleteSchema.statics.addTestScoresById = function (id, testScore, callback) {
+
+	this.findByIdAndUpdate(
+		id,
+		{ $addToSet: { testScores: testScore } },
+		{ safe: true, new: true },
+		function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found'));
+			callback(null, athlete.testScores);
+		}
+	);
+};
 
 module.exports = AthleteSchema;
