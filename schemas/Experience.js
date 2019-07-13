@@ -20,6 +20,9 @@ const ExperienceSchema = new Schema({
 	},
 	endDate: {
 		type: Date
+	},
+	isCurrent: {
+		type: Boolean
 	}
 }, { timestamps: true });
 
