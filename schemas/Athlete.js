@@ -85,4 +85,32 @@ AthleteSchema.statics.addTestScoresById = function (id, testScore, callback) {
 	);
 };
 
+AthleteSchema.statics.addExperienceById = function (id, experience, callback) {
+
+	this.findByIdAndUpdate(
+		id,
+		{ $addToSet: { experiences: experience } },
+		{ safe: true, new: true },
+		function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found'));
+			callback(null, athlete.experiences);
+		}
+	);
+};
+
+AthleteSchema.statics.addEducationById = function (id, education, callback) {
+
+	this.findByIdAndUpdate(
+		id,
+		{ $addToSet: { education: education } },
+		{ safe: true, new: true },
+		function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found'));
+			callback(null, athlete.education);
+		}
+	);
+};
+
 module.exports = AthleteSchema;
