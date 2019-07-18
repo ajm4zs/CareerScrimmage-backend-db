@@ -20,7 +20,18 @@ const EducationSchema = new Schema({
 	},
 	endDate: {
 		type: Date
+	},
+	isCurrent: {
+		type: Boolean
 	}
 }, { timestamps: true });
+
+EducationSchema.methods.update = function (updated) {
+	this.school = updated.school;
+	this.description = updated.description;
+	this.startDate = updated.startDate;
+	this.endDate = updated.endDate;
+	this.isCurrent = updated.isCurrent;
+};
 
 module.exports = EducationSchema;

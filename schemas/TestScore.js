@@ -22,4 +22,10 @@ const TestScoreSchema = new Schema({
 	}
 }, { timestamps: true });
 
+TestScoreSchema.methods.update = function (updated) {
+	this.name = updated.name;
+	this.type = updated.type;
+	this.score = updated.score;
+};
+
 module.exports = TestScoreSchema;

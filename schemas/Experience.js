@@ -26,4 +26,12 @@ const ExperienceSchema = new Schema({
 	}
 }, { timestamps: true });
 
+ExperienceSchema.methods.update = function (updated) {
+	this.name = updated.name;
+	this.description = updated.description;
+	this.startDate = updated.startDate;
+	this.endDate = updated.endDate;
+	this.isCurrent = updated.isCurrent;
+};
+
 module.exports = ExperienceSchema;

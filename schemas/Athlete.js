@@ -71,7 +71,7 @@ const AthleteSchema = new Schema({
 	education: [EducationSchema]
 }, { timestamps: true });
 
-AthleteSchema.statics.addTestScoresById = function (id, testScore, callback) {
+AthleteSchema.statics.addTestScoreById = function (id, testScore, callback) {
 
 	this.findByIdAndUpdate(
 		id,
@@ -83,6 +83,41 @@ AthleteSchema.statics.addTestScoresById = function (id, testScore, callback) {
 			callback(null, athlete.testScores);
 		}
 	);
+};
+
+AthleteSchema.statics.updateTestScoreById = function (id, testScore, callback) {
+
+	this.findById(id, function (error, athlete) {
+		if (error) return void callback(error);
+		if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
+
+		const t = athlete.testScores.id(testScore._id);
+		if (!t) return void callback(new errors.NotFoundError('Test Score is not found.'));
+		t.update(testScore);
+
+		athlete.save(function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
+			callback(null, athlete.testScores);
+		});
+	});
+};
+
+AthleteSchema.statics.deleteTestScoreById = function (id, testScoreId, callback) {
+	this.findById(id, function (error, athlete) {
+		if (error) return void callback(error);
+		if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
+
+		const t = athlete.testScores.id(testScoreId);
+		if (!t) return void callback(null, athlete.testScores);
+		t.remove();
+
+		athlete.save(function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
+			callback(null, athlete.testScores);
+		});
+	});
 };
 
 AthleteSchema.statics.addExperienceById = function (id, experience, callback) {
