@@ -189,7 +189,7 @@ AthleteSchema.statics.updateEducationById = function (id, education, callback) {
 		if (error) return void callback(error);
 		if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
 
-		const e = athlete.educaiton.id(education._id);
+		const e = athlete.education.id(education._id);
 		if (!e) return void callback(new errors.NotFoundError('Education is not found.'));
 		e.update(education);
 
