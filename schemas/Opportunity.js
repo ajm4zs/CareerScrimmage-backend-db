@@ -47,4 +47,14 @@ OpportunitySchema.statics.findByState = function (state, callback) {
 	this.where('state', utilities.toCanonical(state)).findOne(callback);
 };
 
+OpportunitySchema.methods.update = function (updated) {
+	this.name = updated.name;
+	this.city = updated.city;
+	this.state = updated.state;
+	this.description = updated.description;
+	this.startDate = updated.startDate;
+	this.endDate = updated.endDate;
+	this.deadlineDate = updated.deadlineDate;
+};
+
 module.exports = OpportunitySchema;
