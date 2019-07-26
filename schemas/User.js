@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const async = require('async');
 const bcrypt = require('bcrypt');
 
+const errors = require('careerscrimmage-backend-utils').errors;
 const utilities = require('./../lib/utilities');
 
 const UserSchema = new Schema({
@@ -112,5 +113,21 @@ UserSchema.methods.validatePassword = function (password, callback) {
 // insert new user
 // update profile image
 // update user info
+
+UserSchema.statics.updateProfileImageById = function (id, imageUrl, callback) {
+
+	this.findById(id, function (error, user) {
+		if (error) return void callback(error);
+		if (!user) return void callback(new errors.NotFoundError('User not found.'));
+
+		user.profilePictureUrl = imageUrl;
+
+		user.save(function (error, user) {
+			if (error) return void callback(error);
+			if (!user) return void callback(new errors.NotFoundError('User not found.'));
+			callback(null, user.profilePictureUrl);
+		});
+	});
+};
 
 module.exports = UserSchema;
