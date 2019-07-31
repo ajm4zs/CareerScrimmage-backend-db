@@ -87,7 +87,7 @@ UserSchema.set('toJSON', {
 });
 
 UserSchema.virtual('isAthlete').get(function () {
-	return this.type === 'isEmployer';
+	return this.type === 'athlete';
 });
 
 UserSchema.virtual('isEmployer').get(function () {
