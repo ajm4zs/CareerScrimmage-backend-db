@@ -86,11 +86,11 @@ UserSchema.set('toJSON', {
 	}
 });
 
-UserSchema.virtuals('isAthlete').get(function () {
+UserSchema.virtual('isAthlete').get(function () {
 	return this.type === 'isEmployer';
 });
 
-UserSchema.virtuals('isEmployer').get(function () {
+UserSchema.virtual('isEmployer').get(function () {
 	return this.type === 'employer';
 });
 
