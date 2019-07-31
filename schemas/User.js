@@ -86,6 +86,14 @@ UserSchema.set('toJSON', {
 	}
 });
 
+UserSchema.virtuals('isAthlete').get(function () {
+	return this.type === 'isEmployer';
+});
+
+UserSchema.virtuals('isEmployer').get(function () {
+	return this.type === 'employer';
+});
+
 UserSchema.statics.findByEmail = function (email, callback) {
 	this.where('email', utilities.toCanonical(email)).findOne(callback);
 };
