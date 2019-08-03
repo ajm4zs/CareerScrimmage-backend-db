@@ -3,6 +3,19 @@ const Schema = mongoose.Schema;
 const OpportunitySchema = require('./Opportunity');
 const errors = require('careerscrimmage-backend-utils').errors;
 
+const industries = [
+	'Education',
+	'Finance',
+	'Government',
+	'Healthcare',
+	'Manufacturing',
+	'Marketing',
+	'Media',
+	'Real Estate',
+	'Retail',
+	'Technology'
+];
+
 const EmployerSchema = new Schema({
 	type: {
 		type: String,
@@ -13,7 +26,8 @@ const EmployerSchema = new Schema({
 		type: String
 	},
 	industry: {
-		type: String
+		type: String,
+		enum: industries
 	},
 	opportunities: [OpportunitySchema]
 }, { timestamps: true });
