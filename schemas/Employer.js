@@ -81,4 +81,20 @@ EmployerSchema.statics.deleteOpportunityById = function (id, opportunityId, call
 	});
 };
 
+EmployerSchema.statics.findOpenOpportunities = function (callback) {
+	this.find({}, {
+		opportunities: true,
+		profilePictureUrl: true,
+		name: true,
+		_id: true
+	}, function (error, opportunities) {
+		if (error) return void callback(error);
+		if (!opportunities) return void callback(null, false);
+
+		console.log(opportunities);
+
+		callback(null, true, opportunities);
+	});
+};
+
 module.exports = EmployerSchema;
