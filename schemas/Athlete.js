@@ -68,7 +68,8 @@ const AthleteSchema = new Schema({
 	},
 	testScores: [TestScoreSchema],
 	experiences: [ExperienceSchema],
-	education: [EducationSchema]
+	education: [EducationSchema],
+	favoriteEmployers: [{ type: Schema.ObjectId, ref: 'Employer' }]
 }, { timestamps: true });
 
 AthleteSchema.statics.addTestScoreById = function (id, testScore, callback) {
@@ -215,6 +216,38 @@ AthleteSchema.statics.deleteEducationById = function (id, educationId, callback)
 			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
 			callback(null, athlete.education);
 		});
+	});
+};
+
+AthleteSchema.statics.addEmployerById = function (athleteId, employerId, callback) {
+	this.findByIdAndUpdate(
+		athleteId,
+		{ $addToSet: { favoriteEmployers: employerId } },
+		{ safe: true, new: true },
+		function (error, athlete) {
+			if (error) return void callback(error);
+			if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
+			if (!employerId) return void callback(new errors.NotFoundError('Employer not found.'));
+
+			callback(null, athlete);
+		}
+	);
+};
+
+AthleteSchema.statics.removeEmployerById = function (athleteId, employerId, callback) {
+	const Athlete = this;
+	const Employer = this.model('Employer');
+
+	Employer.findById(employerId, function (error, employer) {
+		Athlete.findByIdAndUpdate(
+			athleteId,
+			{ $pull: { favoriteEmployers: employerId } },
+			{ safe: true, new: true },
+			function (error, athlete) {
+				if (error) return void callback(error);
+				callback(null, athlete);
+			}
+		);
 	});
 };
 
