@@ -208,7 +208,7 @@ AthleteSchema.statics.deleteEducationById = function (id, educationId, callback)
 		if (!athlete) return void callback(new errors.NotFoundError('Athlete not found.'));
 
 		const e = athlete.education.id(educationId);
-		if (!e) return void callback(null, athlete.educatio);
+		if (!e) return void callback(null, athlete.education);
 		e.remove();
 
 		athlete.save(function (error, athlete) {
