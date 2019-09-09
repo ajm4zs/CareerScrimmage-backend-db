@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const ApplicationSchema = require('./Application');
 
 const async = require('async');
 const bcrypt = require('bcrypt');
@@ -40,7 +41,8 @@ const OpportunitySchema = new Schema({
 		type: Date,
 		required: true,
 		index: true
-	}
+	},
+	applications: [ApplicationSchema]
 }, { timestamps: true });
 
 OpportunitySchema.statics.findByState = function (state, callback) {
