@@ -91,8 +91,6 @@ EmployerSchema.statics.findOpenOpportunities = function (callback) {
 		if (error) return void callback(error);
 		if (!opportunities) return void callback(null, false);
 
-		console.log(opportunities);
-
 		callback(null, true, opportunities);
 	});
 };

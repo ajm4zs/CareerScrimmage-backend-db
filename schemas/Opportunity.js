@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ApplicationSchema = require('./Application');
 
 const async = require('async');
 const bcrypt = require('bcrypt');
@@ -42,8 +41,7 @@ const OpportunitySchema = new Schema({
 		type: Date,
 		required: true,
 		index: true
-	},
-	applications: [ApplicationSchema]
+	}
 }, { timestamps: true });
 
 OpportunitySchema.statics.findByState = function (state, callback) {
@@ -58,20 +56,6 @@ OpportunitySchema.methods.update = function (updated) {
 	this.startDate = updated.startDate;
 	this.endDate = updated.endDate;
 	this.deadlineDate = updated.deadlineDate;
-};
-
-OpportunitySchema.statics.addApplicationById = function (id, application, callback) {
-
-	this.findByIdAndUpdate(
-		id,
-		{ $addToSet: { applications: application } },
-		{ safe: true, new: true },
-		function (error, opportunity) {
-			if (error) return void callback(error);
-			if (!opportunity) return void callback(new errors.NotFoundError('Opportunity not found'));
-			callback(null, opportunity.applications);
-		}
-	);
 };
 
 module.exports = OpportunitySchema;
