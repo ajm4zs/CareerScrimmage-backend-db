@@ -23,4 +23,22 @@ const ApplicationSchema = new Schema({
 	}
 }, { timestamps: true });
 
+ApplicationSchema.statics.findApplicationsByAthlete = function (athleteId, callback) {
+	this.find({ athlete: athleteId }, function (error, applications) {
+		if (error) return void callback(error);
+		if (!applications) return void callback(null, false);
+
+		callback(null, true, applications);
+	});
+};
+
+ApplicationSchema.statics.findApplicationsByEmployer = function (employerId, callback) {
+	this.find({ employer: employerId }, function (error, applications) {
+		if (error) return void callback(error);
+		if (!applications) return void callback(null, false);
+
+		callback(null, true, applications);
+	});
+};
+
 module.exports = ApplicationSchema;
