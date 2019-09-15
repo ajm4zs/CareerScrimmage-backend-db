@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 
 const utilities = require('./../lib/utilities');
 const errors = require('careerscrimmage-backend-utils').errors;
+const moment = require('moment');
 
 const OpportunitySchema = new Schema({
 	name: {
@@ -42,7 +43,21 @@ const OpportunitySchema = new Schema({
 		required: true,
 		index: true
 	}
+	// ,
+	// status: {
+	// 	type: String,
+	// 	default: 'pending',
+	// 	enum: ['past', 'reviewable', 'open']
+	// }
 }, { timestamps: true });
+
+OpportunitySchema.virtual('status').get(function () {
+	const currentDate = moment().utc().format('YYYY-MM-DD');
+
+	if (moment(this.startDate).utc().isSameOrAfter(currentDate)) return 'past';
+	else if (moment(this.deadlineDate).utc().isSameOrAfter(currentDate)) return 'reviewable';
+	else return 'open';
+});
 
 OpportunitySchema.statics.findByState = function (state, callback) {
 	this.where('state', utilities.toCanonical(state)).findOne(callback);
