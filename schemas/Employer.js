@@ -32,6 +32,19 @@ const EmployerSchema = new Schema({
 	opportunities: [OpportunitySchema]
 }, { timestamps: true });
 
+EmployerSchema.statics.getOpportunityById = function (id, opportunityId, callback) {
+
+	this.findById(id, function (error, employer) {
+		if (error) return void callback(error);
+		if (!employer) return void callback(new errors.NotFoundError('Employer not found.'));
+
+		const o = employer.opportunities.id(opportunityId);
+		if (!o) return void callback(new errors.NotFoundError('Opportunity is not found.'));
+
+		callback(null, o);
+	});
+};
+
 EmployerSchema.statics.addOpportunityById = function (id, opportunity, callback) {
 
 	this.findByIdAndUpdate(
