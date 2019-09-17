@@ -41,4 +41,13 @@ ApplicationSchema.statics.findApplicationsByEmployer = function (employerId, cal
 	});
 };
 
+ApplicationSchema.statics.findApplicationsByOpportunity = function (opportunityId, callback) {
+	this.find({ opportunity: opportunityId }, function (error, applications) {
+		if (error) return void callback(error);
+		if (!applications) return void callback(null, false);
+
+		callback(null, true, applications);
+	});
+};
+
 module.exports = ApplicationSchema;
