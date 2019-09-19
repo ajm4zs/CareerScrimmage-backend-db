@@ -20,6 +20,9 @@ const ApplicationSchema = new Schema({
 	opportunity: {
 		type: Schema.ObjectId,
 		ref: 'Opportunity'
+	},
+	message: {
+		type: String
 	}
 }, { timestamps: true });
 
