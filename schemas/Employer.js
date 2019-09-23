@@ -147,7 +147,7 @@ EmployerSchema.statics.findAllOpenOpportunities = function (callback) {
 			});
 
 		}, function (err1) {
-			return void callback(err1, openOpportunities);
+			return void callback(err1, true, openOpportunities);
 		});
 
 	});

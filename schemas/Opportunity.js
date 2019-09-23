@@ -57,14 +57,14 @@ const OpportunitySchema = new Schema({
 OpportunitySchema.virtual('isPastDeadline').get(function () {
 	const currentDate = moment().utc().format('YYYY-MM-DD');
 
-	if (moment(this.deadlineDate).utc().isSameOrAfter(currentDate)) return true;
+	if (moment(this.deadlineDate).utc().isSameOrBefore(currentDate)) return true;
 	else return false;
 });
 
 OpportunitySchema.virtual('isPastStart').get(function () {
 	const currentDate = moment().utc().format('YYYY-MM-DD');
 
-	if (moment(this.startDate).utc().isSameOrAfter(currentDate)) return true;
+	if (moment(this.startDate).utc().isSameOrBefore(currentDate)) return true;
 	else return false;
 });
 
