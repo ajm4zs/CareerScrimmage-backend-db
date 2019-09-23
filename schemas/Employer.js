@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const OpportunitySchema = require('./Opportunity');
 const errors = require('careerscrimmage-backend-utils').errors;
+const async = require('async');
 
 const industries = [
 	'Education',
@@ -105,6 +106,50 @@ EmployerSchema.statics.findOpenOpportunities = function (callback) {
 		if (!opportunities) return void callback(null, false);
 
 		callback(null, true, opportunities);
+	});
+};
+
+EmployerSchema.statics.findAllOpenOpportunities = function (callback) {
+	this.find({}, {
+		opportunities: true,
+		profilePictureUrl: true,
+		name: true,
+		_id: true
+	}, function (error, employers) {
+		if (error) return void callback(error);
+		if (!employers) return void callback(null, false);
+
+		const openOpportunities = [];
+
+		// now we want to filter opportunities
+		async.each(employers, function (employer, cb) {
+
+			async.each(employer.opportunities, function (opportunity, cb1) {
+				if (opportunity.isActive && !opportunity.isPastDeadline) {
+					const opportunityWithEmployerFields = {};
+					opportunityWithEmployerFields._id = opportunity._id;
+					opportunityWithEmployerFields.name = opportunity.name;
+					opportunityWithEmployerFields.city = opportunity.city;
+					opportunityWithEmployerFields.state = opportunity.state;
+					opportunityWithEmployerFields.description = opportunity.description;
+					opportunityWithEmployerFields.startDate = opportunity.startDate;
+					opportunityWithEmployerFields.endDate = opportunity.endDate;
+					opportunityWithEmployerFields.deadlineDate = opportunity.deadlineDate;
+					opportunityWithEmployerFields.employerName = employer.name;
+					opportunityWithEmployerFields.employerId = employer._id;
+					opportunityWithEmployerFields.employerProfileUrl = employer.profilePictureUrl;
+					opportunityWithEmployerFields.isActive = opportunity.isActive;
+					openOpportunities.push(opportunityWithEmployerFields);
+				}
+				cb1();
+			}, function (err2) {
+				cb(err2);
+			});
+
+		}, function (err1) {
+			return void callback(err1, openOpportunities);
+		});
+
 	});
 };
 
