@@ -42,6 +42,9 @@ const OpportunitySchema = new Schema({
 		type: Date,
 		required: true,
 		index: true
+	},
+	isActive: {
+		type: Boolean
 	}
 	// ,
 	// status: {
@@ -49,14 +52,20 @@ const OpportunitySchema = new Schema({
 	// 	default: 'pending',
 	// 	enum: ['past', 'reviewable', 'open']
 	// }
-}, { timestamps: true });
+}, { timestamps: true }, { toObject: { virtuals: true } }, { toJSON: { virtuals: true } });
 
-OpportunitySchema.virtual('status').get(function () {
+OpportunitySchema.virtual('isPastDeadline').get(function () {
 	const currentDate = moment().utc().format('YYYY-MM-DD');
 
-	if (moment(this.startDate).utc().isSameOrAfter(currentDate)) return 'past';
-	else if (moment(this.deadlineDate).utc().isSameOrAfter(currentDate)) return 'reviewable';
-	else return 'open';
+	if (moment(this.deadlineDate).utc().isSameOrAfter(currentDate)) return true;
+	else return false;
+});
+
+OpportunitySchema.virtual('isPastStart').get(function () {
+	const currentDate = moment().utc().format('YYYY-MM-DD');
+
+	if (moment(this.startDate).utc().isSameOrAfter(currentDate)) return true;
+	else return false;
 });
 
 OpportunitySchema.statics.findByState = function (state, callback) {
