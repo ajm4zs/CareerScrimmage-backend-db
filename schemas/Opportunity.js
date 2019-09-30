@@ -45,6 +45,11 @@ const OpportunitySchema = new Schema({
 	},
 	isActive: {
 		type: Boolean
+	},
+	opportunityType: {
+		type: String,
+		required: true,
+		enum: ['careerDay', 'internship', 'shadow']
 	}
 	// ,
 	// status: {
