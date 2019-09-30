@@ -73,7 +73,7 @@ OpportunitySchema.virtual('isPastStart').get(function () {
 });
 
 OpportunitySchema.virtual('getType').get(function () {
-	if (this.opportunityType === 'internship' || this.opportunityType === 'shadow') return this.opportunityType.toUpperCase();
+	if (this.opportunityType === 'internship' || this.opportunityType === 'shadow') return this.opportunityType.charAt(0).toUpperCase() + this.opportunityType.slice(1);
 	else if (this.opportunityType === 'careerDay') return 'Career Day';
 	else return 'None';
 });
