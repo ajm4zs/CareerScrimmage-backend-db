@@ -72,6 +72,12 @@ OpportunitySchema.virtual('isPastStart').get(function () {
 	else return false;
 });
 
+OpportunitySchema.virtual('getType').get(function () {
+	if (this.opportunityType === 'internship' || this.opportunityType === 'shadow') return this.opportunityType.toUpperCase();
+	else if (this.opportunityType === 'careerDay') return 'Career Day';
+	else return 'None';
+});
+
 OpportunitySchema.statics.findByState = function (state, callback) {
 	this.where('state', utilities.toCanonical(state)).findOne(callback);
 };
