@@ -139,6 +139,7 @@ EmployerSchema.statics.findAllOpenOpportunities = function (callback) {
 					opportunityWithEmployerFields.employerId = employer._id;
 					opportunityWithEmployerFields.employerProfileUrl = employer.profilePictureUrl;
 					opportunityWithEmployerFields.isActive = opportunity.isActive;
+					opportunityWithEmployerFields.opportunityType = opportunity.getType;
 					openOpportunities.push(opportunityWithEmployerFields);
 				}
 				cb1();
@@ -183,6 +184,7 @@ EmployerSchema.statics.findAllClosedOpportunities = function (callback) {
 					opportunityWithEmployerFields.employerId = employer._id;
 					opportunityWithEmployerFields.employerProfileUrl = employer.profilePictureUrl;
 					opportunityWithEmployerFields.isActive = opportunity.isActive;
+					opportunityWithEmployerFields.opportunityType = opportunity.getType;
 					closedOpportunities.push(opportunityWithEmployerFields);
 				}
 				cb1();
