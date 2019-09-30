@@ -35,8 +35,7 @@ const OpportunitySchema = new Schema({
 		index: true
 	},
 	endDate: {
-		type: Date,
-		required: true
+		type: Date
 	},
 	deadlineDate: {
 		type: Date,
