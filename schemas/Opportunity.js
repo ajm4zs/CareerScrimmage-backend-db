@@ -83,8 +83,9 @@ OpportunitySchema.methods.update = function (updated) {
 	this.state = updated.state;
 	this.description = updated.description;
 	this.startDate = updated.startDate;
-	this.endDate = updated.endDate;
+	if (updated.endDate) this.endDate = updated.endDate;
 	this.deadlineDate = updated.deadlineDate;
+	this.opportunityType = updated.endDate;
 };
 
 module.exports = OpportunitySchema;
