@@ -39,6 +39,10 @@ const UserSchema = new Schema({
 	},
 	twitter: {
 		type: String
+	},
+	isProfileComplete: {
+		type: Boolean,
+		default: false
 	}
 }, { timestamps: true });
 
