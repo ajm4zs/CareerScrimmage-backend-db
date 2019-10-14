@@ -99,7 +99,10 @@ UserSchema.virtual('isEmployer').get(function () {
 });
 
 UserSchema.statics.findByEmail = function (email, callback) {
-	this.where('email', utilities.toCanonical(email)).findOne(callback);
+	this.where('email', utilities.toCanonical(email)).findOne(function (err, user) {
+		if (!user) callback('Not Found');
+		else callback(err, user);
+	});
 };
 
 UserSchema.statics.validateCredentials = function (email, password, callback) {
@@ -118,13 +121,6 @@ UserSchema.statics.validateCredentials = function (email, password, callback) {
 UserSchema.methods.validatePassword = function (password, callback) {
 	bcrypt.compare(password, this.hashword, callback);
 };
-
-// statics to get/remove recordings by id
-// get user
-// get all users
-// insert new user
-// update profile image
-// update user info
 
 UserSchema.statics.updateProfileImageById = function (id, imageUrl, callback) {
 
