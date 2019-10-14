@@ -99,10 +99,7 @@ UserSchema.virtual('isEmployer').get(function () {
 });
 
 UserSchema.statics.findByEmail = function (email, callback) {
-	this.where('email', utilities.toCanonical(email)).findOne(function (err, user) {
-		if (!user) callback('Not Found');
-		else callback(err, user);
-	});
+	this.where('email', utilities.toCanonical(email)).findOne(callback);
 };
 
 UserSchema.statics.validateCredentials = function (email, password, callback) {
