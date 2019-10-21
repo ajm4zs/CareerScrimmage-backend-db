@@ -18,7 +18,7 @@
   "dependencies": {
     "async": "^2.6.2",
     "bcrypt": "^3.0.5",
-    "careerscrimmage-backend-utils": "git+ssh://git@github.com/ajm4zs/CareerScrimmage-backend-utils.git",
+    "careerscrimmage-backend-utils": "github:ajm4zs/CareerScrimmage-backend-utils",
     "moment": "^2.24.0",
     "mongoose": "^5.4.19",
     "yargs": "^13.2.2"
