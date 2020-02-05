@@ -29,7 +29,7 @@ AuthTokenSchema.index({ token: 1 }, { unique: true });
 AuthTokenSchema.index({ token: 1, type: 1 });
 AuthTokenSchema.index({ user: 1, type: 1 });
 
-AuthTokenSchema.statics.create = function (user, authClient, tokenLife, type, callback) {
+AuthTokenSchema.statics.create = function (user, tokenLife, type, callback) {
 	const AuthToken = this;
 
 	crypto.randomBytes(48, function (error, buffer) {
