@@ -51,7 +51,7 @@ AuthTokenSchema.statics.findByTokenAndType = function (token, type, callback) {
 };
 
 AuthTokenSchema.statics.removeByUserAndType = function (user, type, callback) {
-	this.where('user', user).where('type', type).remove(callback);
+	this.where('user', user).where('type', type).deleteMany(callback);
 };
 
 AuthTokenSchema.methods.isExpired = function () {
