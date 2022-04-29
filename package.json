@@ -16,7 +16,7 @@
   "author": "Alex Mulchandani",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.6.2",
+    "async": "^2.6.4",
     "bcrypt": "^3.0.5",
     "careerscrimmage-backend-utils": "github:ajm4zs/CareerScrimmage-backend-utils",
     "moment": "^2.24.0",
